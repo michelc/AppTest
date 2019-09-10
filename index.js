@@ -81,6 +81,23 @@ app.get("/livres", (req, res) => {
   });
 });
 
+// GET /create
+app.get("/create", (req, res) => {
+  res.render("create", { model: {} });
+});
+
+// POST /create
+app.post("/create", (req, res) => {
+  const sql = "INSERT INTO Livres (Titre, Auteur, Commentaires) VALUES (?, ?, ?)";
+  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires];
+  db.run(sql, book, err => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect("/livres");
+  });
+});
+
 // GET /edit/5
 app.get("/edit/:id", (req, res) => {
   const id = req.params.id;
