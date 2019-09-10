@@ -19,6 +19,20 @@ const db = new sqlite3.Database(db_name, err => {
   console.log("Connexion réussie à la base de données 'apptest.db'");
 });
 
+// Création de la table Livres (Livre_ID, Titre, Auteur, Commentaires)
+const sql_create = `CREATE TABLE IF NOT EXISTS Livres (
+  Livre_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  Titre VARCHAR(100) NOT NULL,
+  Auteur VARCHAR(100) NOT NULL,
+  Commentaires TEXT
+);`;
+db.run(sql_create, err => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log("Création réussie de la table 'Livres'");
+});
+
 // Démarrage du serveur
 app.listen(3000, () => {
     console.log("Serveur démarré (http://localhost:3000/) !");
