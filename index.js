@@ -68,3 +68,14 @@ app.get("/data", (req, res) => {
   };
   res.render("data", { model: test });
 });
+
+// GET /livres
+app.get("/livres", (req, res) => {
+  const sql = "SELECT * FROM Livres ORDER BY Titre";
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("livres", { model: rows });
+  });
+});
