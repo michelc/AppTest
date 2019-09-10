@@ -122,3 +122,27 @@ app.post("/edit/:id", (req, res) => {
     res.redirect("/livres");
   });
 });
+
+// GET /delete/5
+app.get("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
+  db.get(sql, id, (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("delete", { model: row });
+  });
+});
+
+// POST /delete/5
+app.post("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "DELETE FROM Livres WHERE Livre_ID = ?";
+  db.run(sql, id, err => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect("/livres");
+  });
+});
