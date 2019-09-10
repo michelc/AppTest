@@ -15,3 +15,7 @@ app.get("/", (req, res) => {
   // res.send("Bonjour le monde...");
   res.render("index");
 });
+
+app.get("/about", (req, res) => {
+  res.render("about");
+});
