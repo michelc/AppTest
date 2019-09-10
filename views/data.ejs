@@ -1,0 +1,13 @@
+<%- include("_header") -%>
+
+<h1><%= model.titre %></h1>
+
+<ul>
+
+  <% for (let i = 0; i < model.items.length; i++) { %>
+    <li><%= model.items[i] %></li>
+  <% } %>
+
+</ul>
+
+<%- include("_footer") -%>
