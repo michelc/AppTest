@@ -1,0 +1,22 @@
+<%- include("_header") -%>
+
+<h1>Modifier une fiche</h1>
+
+<form action="/edit/<%= model.Livre_ID %>" method="post">
+
+  <div class="form-horizontal">
+
+    <%- include("_editor") -%>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input type="submit" value="Modifier" class="btn btn-default btn-warning" />
+        <a class="btn btn-outline-dark cancel" href="/livres">Annuler</a>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<%- include("_footer") -%>

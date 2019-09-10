@@ -9,6 +9,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
 
 // Connexion à la base de donnée SQlite
 const db_name = path.join(__dirname, "data", "apptest.db");
@@ -77,5 +78,30 @@ app.get("/livres", (req, res) => {
       return console.error(err.message);
     }
     res.render("livres", { model: rows });
+  });
+});
+
+// GET /edit/5
+app.get("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
+  db.get(sql, id, (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("edit", { model: row });
+  });
+});
+
+// POST /edit/5
+app.post("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires, id];
+  const sql = "UPDATE Livres SET Titre = ?, Auteur = ?, Commentaires = ? WHERE (Livre_ID = ?)";
+  db.run(sql, book, err => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect("/livres");
   });
 });
